@@ -1,0 +1,10 @@
+{"id":"q1","question":"How do I reset my password if I'm locked out?","expected":"answer","expected_category":"account","must_mention":["Forgot password","60 minutes"]}
+{"id":"q2","question":"What plans do you offer and how much is Pro?","expected":"answer","expected_category":"billing","must_mention":["Pro","$12"]}
+{"id":"q3","question":"Can I get a refund? I paid last week.","expected":"escalate","expected_category":"billing","must_mention":["ticket"]}
+{"id":"q4","question":"What are the API rate limits on the Business plan?","expected":"answer","expected_category":"developers","must_mention":["3,000","429"]}
+{"id":"q5","question":"How do I invite a guest and do guests count as a seat?","expected":"answer","expected_category":"account","must_mention":["Guest","don't count"]}
+{"id":"q6","question":"How can I export my whole workspace?","expected":"answer","expected_category":"data","must_mention":["Export workspace","ZIP"]}
+{"id":"q7","question":"I'm the only owner and lost my 2FA device, help!","expected":"escalate","expected_category":"account","must_mention":["ticket"]}
+{"id":"q8","question":"Do you verify webhook payloads?","expected":"answer","expected_category":"developers","must_mention":["HMAC","X-Meridian-Signature"]}
+{"id":"q9","question":"What happens to my data if I cancel?","expected":"answer","expected_category":"billing","must_mention":["Free plan","retained"]}
+{"id":"q10","question":"Does Meridian sell my data to third parties?","expected":"escalate","expected_category":"unknown","must_mention":["ticket"]}

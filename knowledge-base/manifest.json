@@ -1,0 +1,12 @@
+{
+  "company": "Meridian",
+  "description": "Fictional B2B SaaS (project management + analytics) used to demonstrate production-grade RAG support automation.",
+  "articles": [
+    { "file": "billing-and-plans.md",      "category": "billing",       "title": "Billing and plans" },
+    { "file": "reset-password.md",          "category": "account",       "title": "Reset your password" },
+    { "file": "invite-team-members.md",     "category": "account",       "title": "Invite team members and roles" },
+    { "file": "api-keys-and-webhooks.md",   "category": "developers",    "title": "API keys and webhooks" },
+    { "file": "export-your-data.md",        "category": "data",          "title": "Export your data" },
+    { "file": "cancel-or-refund.md",        "category": "billing",       "title": "Cancel subscription and refunds" }
+  ]
+}

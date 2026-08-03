@@ -1,0 +1,19 @@
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# n8n local
+.n8n/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Build / temp
+*.log
+tmp/
