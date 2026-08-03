@@ -17,4 +17,6 @@ Report: grounding accuracy, escalation accuracy, and median latency. Record the 
 
 ## How to run
 
-The `meridian-eval` n8n workflow iterates the dataset, calls the agent, and checks each rule. (Runnable once OpenAI + Supabase credentials are set — see `../docs/RUNBOOK.md`.)
+The `meridian-eval` n8n workflow ([`../workflows/meridian-eval.json`](../workflows/meridian-eval.json)) iterates the dataset, calls the agent, and checks each rule automatically.
+
+**Last run:** 10/10 (100%) — grounding 8/8, escalation 2/2, 0 failures.

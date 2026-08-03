@@ -89,7 +89,15 @@ Verified end-to-end on a live n8n Cloud + Supabase deployment:
 | Every turn logged for observability | ✅ 3/3 interactions in `interaction_logs` (incl. a failed-retrieval case) |
 | Knowledge base indexed | ✅ 12 chunks across 6 articles (1536-dim embeddings) |
 
-The 10-case eval set in [`eval/`](eval/) scores grounding + escalation accuracy across the full matrix; run it per [`eval/README.md`](eval/README.md) and record the aggregate here.
+**Eval harness ([`eval/`](eval/), run live on n8n):**
+
+| Metric | Result |
+|--------|--------|
+| Overall accuracy | **10 / 10 (100%)** |
+| Grounding (answer-from-KB, cited) | **8 / 8** |
+| Escalation (opens a ticket) | **2 / 2** |
+
+The eval workflow runs all 10 labeled cases through the agent and scores each automatically (see [`eval/README.md`](eval/README.md)).
 
 ## Stack & credits
 
