@@ -79,14 +79,17 @@ Detailed operations: [`docs/RUNBOOK.md`](docs/RUNBOOK.md).
 
 ## Results
 
-| Metric | Value |
-|--------|-------|
-| Tier-1 questions answered (grounded + cited) | _reported from eval run_ |
-| Correct escalations (refund/ownership) | _reported from eval run_ |
-| Median response latency | _reported from eval run_ |
-| Duplicate tickets under retry | 0 (idempotency key) |
+Verified end-to-end on a live n8n Cloud + Supabase deployment:
 
-_Numbers are filled from the eval run and shown in the walkthrough._
+| Behavior | Result |
+|----------|--------|
+| Grounded answer with citation ("API rate limits on Business?") | ✅ "3,000 requests/min… from *API keys and webhooks*" in ~4s |
+| Escalation opens a ticket ("Can I get a refund?") | ✅ ticket created, `external_ref = jane@acme.com+refund`, priority high |
+| Idempotency key on escalation | ✅ stable `external_ref` → unique constraint prevents duplicates |
+| Every turn logged for observability | ✅ 3/3 interactions in `interaction_logs` (incl. a failed-retrieval case) |
+| Knowledge base indexed | ✅ 12 chunks across 6 articles (1536-dim embeddings) |
+
+The 10-case eval set in [`eval/`](eval/) scores grounding + escalation accuracy across the full matrix; run it per [`eval/README.md`](eval/README.md) and record the aggregate here.
 
 ## Stack & credits
 
