@@ -63,6 +63,28 @@ create table if not exists public.interaction_logs (
   created_at  timestamptz not null default now()
 );
 
+-- Idempotency at the database level: a duplicate external_ref becomes a silent
+-- no-op instead of a unique-violation error. This guarantees at-most-one ticket
+-- per external_ref no matter how many times the agent retries an escalation.
+create or replace function public.tickets_skip_duplicate()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if new.external_ref is not null
+     and exists (select 1 from public.tickets t where t.external_ref = new.external_ref) then
+    return null; -- skip the insert silently
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists tickets_skip_duplicate_trg on public.tickets;
+create trigger tickets_skip_duplicate_trg
+  before insert on public.tickets
+  for each row execute function public.tickets_skip_duplicate();
+
 -- Security: RLS on, deny-by-default. n8n connects with the service role key
 -- (bypasses RLS); no anon/authenticated access is granted to these tables.
 alter table public.kb_documents     enable row level security;

@@ -17,8 +17,9 @@ Each entry: **Context → Decision → Consequence**.
 
 - **Context.** Some requests (refunds, ownership disputes) must reach a human. A wrong "sure, refunded!" is worse than no answer.
 - **Options considered.** Let the model answer everything vs give it an `open_ticket` tool and instruct it to escalate.
-- **Decision.** Provide an `open_ticket` tool. The system prompt requires escalation for money/identity actions. The tool sends an `external_ref` idempotency key derived from session + intent.
-- **Consequence.** No duplicate tickets under retries; clear human hand-off. Trade-off: a small class of questions escalate that a human might have self-served — acceptable, and measured in the eval.
+- **Decision.** Provide an `open_ticket` tool. The system prompt requires escalation for money/identity actions. The tool sends an `external_ref` idempotency key.
+- **Consequence.** Clear human hand-off. Trade-off: a small class of questions escalate that a human might have self-served — acceptable, and measured in the eval.
+- **Idempotency is enforced in the database, not trusted to the LLM.** An early version relied on the LLM to produce a stable `external_ref` plus a `UNIQUE` constraint. In practice the model produced slightly different keys across runs (so duplicates slipped through), and when it *did* repeat a key the raw insert raised a unique-violation the agent then retried in a loop until it hit the iteration cap. Fix: a `BEFORE INSERT` trigger (`tickets_skip_duplicate`) turns a duplicate `external_ref` into a silent no-op. Now a retry is a true no-op — no error, no loop, at-most-one ticket — regardless of the caller. See `database/schema.sql`.
 
 ---
 
