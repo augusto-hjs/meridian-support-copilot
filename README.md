@@ -2,7 +2,7 @@
 
 > An AI support agent that answers customer questions from Meridian's help center and opens a ticket for anything it can't resolve — grounded in RAG, with an eval harness that proves its accuracy.
 
-![Status](https://img.shields.io/badge/status-wip-EAB308?style=flat-square)
+![Status](https://img.shields.io/badge/status-recorded%20demo-3ECF8E?style=flat-square)
 ![n8n](https://img.shields.io/badge/n8n-EA4B71?style=flat-square&logo=n8n&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white)
@@ -12,7 +12,7 @@
 <!-- HERO: input → grounded answer + auto-ticket, in ≤10s -->
 ![Meridian Support Copilot demo](assets/hero.gif)
 
-▶ **Watch the walkthrough** https://www.loom.com/share/874b27d1c03449c7835970a0071ebd27
+▶ **[Watch the 90-second walkthrough](https://www.loom.com/share/874b27d1c03449c7835970a0071ebd27)**
 
 ## Problem → Solution
 
@@ -37,7 +37,7 @@ flowchart LR
     AG -- open_ticket --> T[(tickets)]
     AG --> L[(interaction_logs)]
     AG --> R[Grounded answer + citations]
-    AG -. on error .-> ERR[Error workflow]
+    T -. duplicate .-> DEDUP[DB trigger: no-op]
   end
 ```
 
@@ -47,7 +47,7 @@ Full walkthrough: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 What makes this production-grade, not a demo:
 
-- **Reliability** — dedicated Error Trigger workflow; the `open_ticket` tool uses an idempotency key (`external_ref`) so a retried run never creates duplicate tickets.
+- **Reliability** — `open_ticket` is idempotent: a database trigger turns a duplicate `external_ref` into a no-op, so agent retries never create a second ticket (at-most-one per key). Logging runs continue-on-error, so it can never block the reply.
 - **Observability** — every interaction (question, answer, retrieved doc ids, latency, token usage, resolved/escalated) is written to `interaction_logs` and inspectable in n8n's execution history.
 - **Correctness** — a versioned eval set (`/eval`) runs the agent over labeled Q&A and scores grounding + escalation accuracy; the current number is reported in the Results section.
 - **Cost control** — retrieval capped at top-5 chunks; embeddings generated once at ingestion, not per query; compact model for classification, larger only for generation.
@@ -83,8 +83,8 @@ Verified end-to-end on a live n8n Cloud + Supabase deployment:
 |----------|--------|
 | Grounded answer with citation ("API rate limits on Business?") | ✅ "3,000 requests/min… from *API keys and webhooks*" in ~4s |
 | Escalation opens a ticket ("Can I get a refund?") | ✅ ticket created, `external_ref = jane@acme.com+refund`, priority high |
-| Idempotency key on escalation | ✅ stable `external_ref` → unique constraint prevents duplicates |
-| Every turn logged for observability | ✅ 3/3 interactions in `interaction_logs` (incl. a failed-retrieval case) |
+| Idempotent escalation | ✅ duplicate `external_ref` is a no-op (DB trigger) → at-most-one ticket, even on retries |
+| Every turn logged for observability | ✅ question, answer, and retrieved docs written to `interaction_logs` |
 | Knowledge base indexed | ✅ 12 chunks across 6 articles (1536-dim embeddings) |
 
 **Eval harness ([`eval/`](eval/), run live on n8n):**
