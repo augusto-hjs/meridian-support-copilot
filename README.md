@@ -20,13 +20,11 @@
 
 **Solution.** A retrieval-augmented agent, orchestrated in n8n, that answers from Meridian's actual help center — with citations — and, when a request needs a human (refunds, ownership disputes), automatically opens a structured ticket instead of guessing.
 
-**Outcome.** In the eval set, the agent answers **grounded, cited responses to ~90% of tier-1 questions in ~4 seconds** and correctly escalates the rest — versus a multi-hour first response by hand.
+**Outcome.** On the eval set the agent gives **grounded, cited answers in ~4 seconds and correctly escalates every case that needs a human — 10/10** — versus a multi-hour first response by hand.
 
 > **About the scenario.** Built for **◆ Meridian**, a fictional B2B SaaS (project management + analytics) used to demonstrate production-grade automation in a realistic context. No real customer data.
 
 ## Architecture
-
-![Architecture](assets/architecture.png)
 
 ```mermaid
 flowchart LR
