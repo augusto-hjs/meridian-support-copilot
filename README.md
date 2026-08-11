@@ -12,7 +12,7 @@
 <!-- HERO: input → grounded answer + auto-ticket, in ≤10s -->
 ![Meridian Support Copilot demo](assets/hero.gif)
 
-▶ **Watch the 90-second walkthrough** _(link added when recorded)_
+▶ **Watch the walkthrough** https://www.loom.com/share/874b27d1c03449c7835970a0071ebd27
 
 ## Problem → Solution
 
