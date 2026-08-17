@@ -2,7 +2,7 @@
 
 > An AI support agent that answers customer questions from Meridian's help center and opens a ticket for anything it can't resolve — grounded in RAG, with an eval harness that proves its accuracy.
 
-![Status](https://img.shields.io/badge/status-recorded%20demo-3ECF8E?style=flat-square)
+![Status](https://img.shields.io/badge/status-live-3ECF8E?style=flat-square)
 ![n8n](https://img.shields.io/badge/n8n-EA4B71?style=flat-square&logo=n8n&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white)
