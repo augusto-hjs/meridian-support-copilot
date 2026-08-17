@@ -110,5 +110,5 @@ Maintained by **Augusto Henrique** — AI Automation Engineer · [github.com/aug
 <details>
 <summary>🇧🇷 Resumo em português</summary>
 
-Agente de suporte com IA (RAG) que responde dúvidas de clientes a partir da central de ajuda da Meridian (empresa fictícia), com citações, e **abre um ticket automaticamente** quando o caso precisa de um humano (ex.: reembolso). Orquestrado em n8n, com embeddings e busca vetorial no Supabase (pgvector). Destaques de engenharia: workflow de erro dedicado, **idempotência** na criação de tickets, **observabilidade** (todas as interações logadas) e um **harness de avaliação** que mede a acurácia.
+Agente de suporte com IA (RAG) que responde dúvidas de clientes a partir da central de ajuda da Meridian (empresa fictícia), com citações, e **abre um ticket automaticamente** quando o caso precisa de um humano (ex.: reembolso). Orquestrado em n8n, com embeddings e busca vetorial no Supabase (pgvector). Destaques de engenharia: **idempotência** garantida por trigger no banco (retry nunca duplica ticket), logging com continue-on-error (nunca bloqueia a resposta), **observabilidade** (todas as interações logadas) e um **harness de avaliação** que mede a acurácia (10/10).
 </details>
